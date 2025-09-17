@@ -27,5 +27,5 @@ while True:
     elif option == "6":
         break
     else:
-        print("Invalid option, please try again")
+        print("Invalid option, please try again.")
         continue

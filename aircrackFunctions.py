@@ -6,8 +6,8 @@ import os
 
 def get_password():
     while True:
-        pw = input("type admin pw to begin: ")
-        pw_check = input("retype admin pw to verify: ")
+        pw = input("Type admin pw to begin: ")
+        pw_check = input("Retype admin pw to verify: ")
         if pw == pw_check:
             return pw
         else:
@@ -15,14 +15,15 @@ def get_password():
             continue
 
 def start_monitor(password):
+    interface1 = input("Enter pre-monitor interface name")
     start1 = ["sudo", "-S", "airmon-ng", "check", "kill"]
-    start2 = ["sudo", "-S", "airmon-ng", "start", "wlan0"]
+    start2 = ["sudo", "-S", "airmon-ng", "start", interface1]
     process = subprocess.run(start1, input=password + "\n", capture_output=True, text=True)
     process2 = subprocess.run(start2, input=password + "\n", capture_output=True, text=True)
-    print(process.stdout)
-    print(process2.stdout)
+    #print(process.stdout)
+    #print(process2.stdout)
 
-def recon_scan(password, interface="wlan0mon", duration=30):
+def recon_scan(password, interface, duration=30):
     start1 = ["sudo", "-S", "timeout", str(duration), "airodump-ng", "--write", "scan_results",
               "--output-format", "csv", interface]
     process = subprocess.Popen(start1, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
@@ -75,4 +76,4 @@ def end_monitor(password):
     start2 = ["sudo", "-S", "systemctl", "restart", "NetworkManager"]
     process = subprocess.run(start1, input=password + "\n", capture_output=True, text=True)
     process2 = subprocess.run(start2, input=password + "\n", capture_output=True, text=True)
-    print(process.stdout)
+    #print(process.stdout)
