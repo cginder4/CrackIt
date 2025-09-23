@@ -15,7 +15,7 @@ def get_password():
             continue
 
 def start_monitor(password):
-    interface1 = input("Enter pre-monitor interface name")
+    interface1 = input("Enter pre-monitor interface name: ")
     start1 = ["sudo", "-S", "airmon-ng", "check", "kill"]
     start2 = ["sudo", "-S", "airmon-ng", "start", interface1]
     process = subprocess.run(start1, input=password + "\n", capture_output=True, text=True)
@@ -71,8 +71,8 @@ def attempt_crack(target, wordlist):
     proc1 = subprocess.run(start1, capture_output=True, text=True)
     print(proc1.stdout)
 
-def end_monitor(password):
-    start1 = ["sudo", "-S", "airmon-ng", "stop", "wlan0mon"]
+def end_monitor(password, interface):
+    start1 = ["sudo", "-S", "airmon-ng", "stop", interface]
     start2 = ["sudo", "-S", "systemctl", "restart", "NetworkManager"]
     process = subprocess.run(start1, input=password + "\n", capture_output=True, text=True)
     process2 = subprocess.run(start2, input=password + "\n", capture_output=True, text=True)
